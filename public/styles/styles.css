@@ -1,0 +1,243 @@
+/* styles.css */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+
+:root {
+  --youtube-red: #ff0000;
+  --youtube-dark: #282828;
+  --youtube-light: #ffffff;
+  --border-light: #e0e0e0;
+  --border-hover: #bbb;
+  --bg-light: #f9f9f9;
+  --text-grey: #999;
+  --text-dark-grey: #666;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --focus-shadow: rgba(102, 126, 234, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    "Roboto",
+    -apple-system,
+    BlinkMacSystemFont,
+    Arial,
+    sans-serif;
+  background: var(
+    --bg-light
+  ); /* MOD: was background: var(--youtube-red); (less harsh background; keep red as accent) */
+  min-height: 100vh;
+  padding: 20px;
+  line-height: 1.6;
+  color: var(--youtube-dark);
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: var(--youtube-light);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px var(--shadow-color);
+  padding: 40px;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.logo {
+  display: block; /* NEW: make logo behave predictably */
+}
+
+header h1 {
+  margin-top: 0; /* MOD: was margin-top: 10px; (align baseline in flex header) */
+}
+
+h1 {
+  color: var(--youtube-dark);
+  font-size: 2.2rem; /* MOD: was 2.5rem (slightly smaller for balance with logo) */
+  font-weight: 600;
+  margin-bottom: 0; /* MOD: was margin-bottom: 10px; (header spacing handled by container) */
+}
+
+.site-text-link {
+  text-align: center; /* NEW: center the text link */
+  margin-bottom: 18px; /* NEW: spacing before the UI screenshot */
+}
+
+.site-text-link a {
+  color: var(--youtube-red); /* NEW: consistent accent color */
+  font-weight: 600; /* NEW: make the link stand out */
+  text-decoration: none; /* NEW: cleaner look; hover adds underline */
+}
+
+.site-text-link a:hover {
+  text-decoration: underline; /* NEW: visible hover affordance */
+}
+
+.site-link {
+  display: block;
+  text-align: center;
+  margin: 20px 0 30px; /* MOD: was margin: 30px 0; (more deliberate spacing) */
+  transition: transform 0.3s ease;
+}
+
+.site-link:hover {
+  transform: scale(1.02); /* MOD: was 1.05 (slightly subtler hover) */
+}
+
+.site-link img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+form {
+  margin-top: 20px; /* MOD: was margin-top: 40px; (image already adds spacing) */
+}
+
+.question {
+  margin-bottom: 20px;
+  padding: 14px; /* NEW: make questions visually uniform blocks */
+  border: 1px solid var(--border-light); /* NEW: uniform question divisions (requirement: divisions styled via CSS) */
+  border-radius: 8px; /* NEW: consistent card-like look */
+  background: #fff; /* NEW: keep questions readable on light background */
+}
+
+label {
+  display: block;
+  font-size: 1.05rem; /* MOD: was 1.1rem (slightly tighter) */
+  font-weight: 500;
+  color: var(--youtube-dark);
+  margin-bottom: 8px; /* NEW: consistent spacing before controls */
+}
+
+.question-title {
+  display: block; /* NEW: allow non-label titles for radio/checkbox groups */
+  font-size: 1.05rem; /* NEW: match label sizing */
+  font-weight: 500; /* NEW: match label weight */
+  color: var(--youtube-dark); /* NEW: consistent text color */
+  margin-bottom: 10px; /* NEW: spacing before options */
+}
+
+input[type="text"],
+textarea {
+  /* MOD: textarea added to share styling with text inputs */
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border: 2px solid var(--border-light);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  background-color: var(--bg-light);
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  /* MOD: textarea focus styling added */
+  outline: none;
+  border-color: var(--youtube-red);
+  background-color: var(--youtube-light);
+  box-shadow: 0 0 0 3px var(--focus-shadow);
+}
+
+input[type="text"]:hover,
+textarea:hover {
+  /* MOD: textarea hover styling added */
+  border-color: var(--border-hover);
+}
+
+textarea {
+  resize: vertical; /* NEW: allow resizing vertically only */
+  min-height: 110px; /* NEW: ensure comments area is visibly “a space” */
+}
+
+select {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border: 2px solid var(--border-light);
+  border-radius: 6px;
+  background-color: var(--bg-light);
+  cursor: pointer;
+}
+
+select:focus {
+  border-color: var(--youtube-red);
+  background-color: var(--youtube-light);
+  box-shadow: 0 0 0 3px var(--focus-shadow);
+}
+
+select:hover {
+  border-color: var(--border-hover);
+}
+
+.options {
+  display: grid; /* NEW: structured layout for options */
+  gap: 10px; /* NEW: consistent spacing between options */
+}
+
+.option {
+  display: flex; /* NEW: align radio/checkbox icon next to text */
+  align-items: center; /* NEW: vertical alignment */
+  gap: 10px; /* NEW: spacing between icon and label text */
+  font-size: 1rem; /* NEW: readable option text */
+  cursor: pointer; /* NEW: clicking feels interactive */
+}
+
+.option input[type="radio"],
+.option input[type="checkbox"] {
+  accent-color: var(
+    --youtube-red
+  ); /* NEW: red radio/checkbox icons (requested “radio icon beside it”) */
+}
+
+small {
+  color: var(--text-grey);
+  font-size: 0.95rem;
+  padding: 10px 0;
+  text-align: left;
+}
+
+input[type="submit"] {
+  margin-top: 20px;
+  cursor: pointer;
+  padding: 12px 18px; /* MOD: was 12px 16px (slightly wider button) */
+  font-size: 1.1rem;
+  border: 2px solid var(--youtube-red);
+  border-radius: 6px;
+  background-color: var(--youtube-red);
+  color: var(--youtube-light);
+}
+
+input[type="submit"]:hover {
+  filter: brightness(0.95); /* NEW: subtle hover feedback */
+}
+
+#submitbtn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+footer {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 2px solid var(--border-light);
+  text-align: center;
+}
+
+footer p {
+  color: var(--text-dark-grey);
+  font-size: 0.9rem;
+  font-weight: 400;
+}

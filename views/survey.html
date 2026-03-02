@@ -1,0 +1,125 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>YouTube UI Survey</title>
+    <link rel="stylesheet" href="/styles/styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <img src="/assets/YoutubeLogo.png" alt="YouTube logo" width="200" />
+        <h1>YouTube User Interface Survey</h1>
+      </header>
+
+      <p class="site-text-link">
+        <a href="https://www.youtube.com" target="_blank">Visit YouTube</a>
+      </p>
+
+      <a class="site-link" href="https://www.youtube.com" target="_blank">
+        <img
+          src="/assets/YoutubeImage.png"
+          alt="Screenshot of YouTube"
+          width="700"
+        />
+      </a>
+
+      <form>
+        <div class="question">
+          <label for="q1">What do you like about this website?</label><br />
+          <input
+            type="text"
+            id="q1"
+            name="q1"
+            placeholder="e.g., recommendations, layout, search..."
+          />
+          <!-- add placeholder -->
+        </div>
+
+        <div class="question">
+          <label for="q2">What do you dislike about this website?</label><br />
+          <input
+            type="text"
+            id="q2"
+            name="q2"
+            placeholder="e.g., ads, clutter, autoplay..."
+          />
+          <!-- add placeholder -->
+        </div>
+
+        <div class="question">
+          <span class="question-title"
+            >Do you prefer the sidebar on the left or the right?</span
+          >
+          <div class="options">
+            <label class="option">
+              <input type="radio" name="q3" id="q3-left" value="left" /> Left
+              <!--  radio option (single choice requirement) -->
+            </label>
+            <label class="option">
+              <input type="radio" name="q3" id="q3-right" value="right" /> Right
+              <!--  radio option -->
+            </label>
+            <label class="option">
+              <input
+                type="radio"
+                name="q3"
+                id="q3-no-pref"
+                value="no-preference"
+              />
+              No preference
+              <!--  radio option -->
+            </label>
+          </div>
+        </div>
+
+        <div class="question">
+          <label for="q4"
+            >Is the desity of links too high, too low, or about right?</label
+          >
+          <select name="q4" id="q4">
+            <option value="" selected disabled>Select one...</option>
+            <option value="too-high">Too high</option>
+            <option value="too-low">Too low</option>
+            <option value="about-right">About right</option>
+          </select>
+        </div>
+
+        <div class="question">
+          <label for="q5">Which colours do you like on the website?</label>
+          <small>
+            Hint: Use Ctrl (Windows) or Command (Mac) to select multiple
+          </small>
+          <br />
+          <select name="q5" id="q5" multiple style="height: 90px">
+            <option value="red">Red</option>
+            <option value="white">White</option>
+            <option value="black">Black</option>
+          </select>
+        </div>
+
+        <div class="question">
+          <label for="q6">Additional comments</label><br />
+          <textarea
+            id="q6"
+            name="q6"
+            rows="4"
+            placeholder="Write any suggestions or issues you noticed..."
+          ></textarea>
+        </div>
+
+        <div id="submitbtn">
+          <input type="submit" value="Submit Survey" />
+        </div>
+      </form>
+
+      <footer>
+        <p>
+          Website designed by Alexander Seiffert, Alexander Yeh, and Macintosh
+          Chen
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>
