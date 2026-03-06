@@ -1,0 +1,16 @@
+{
+  "title": "YouTube User Interface Survey",
+  "questions": {
+    "q1": "What do you like about this website?",
+    "q2": "What do you dislike about this website?",
+    "q3": "Do you prefer the sidebar on the left or the right?",
+    "q4": "Is the density of links too high, too low, or about right?",
+    "q5": "Which colours do you like on the website?",
+    "q6": "Additional comments"
+  },
+  "options": {
+    "q3": ["left", "right", "no-preference"],
+    "q4": ["too-high", "too-low", "about-right"],
+    "q5": ["red", "white", "black"]
+  }
+}

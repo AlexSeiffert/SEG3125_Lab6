@@ -1,24 +1,28 @@
 // Entry point for the application
 
 // express application
-var express = require("express");
+const express = require("express");
+
+const path = require("path");
+
 // require the controller we make
-var server = require("./server");
+const server = require("./server");
 
-var app = express();
+const app = express();
 
-// set up template engine
+// view engine + views path
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "..", "views"));
 
 // needed to process data from HTML form POST req
 app.use(express.urlencoded({ extended: true }));
 
 // static file serving
-app.use(express.static("./public"));
+app.use(express.static(path.join(__dirname, "..", "public")));
 
-// fire function from server
+// routes
 server(app);
 
-// listen to port
-app.listen(3000);
-console.log("listening port 3000");
+// port (supports deployment)
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`listening port ${PORT}`));

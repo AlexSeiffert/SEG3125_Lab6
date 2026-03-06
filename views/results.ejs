@@ -1,2 +1,116 @@
 <!-- results view (Embedded JS) -->
-<!-- TODO: display aggregated results, pull from the jsons in the data folder -->
+<!-- DONE: display aggregated results, pull from the jsons in the data folder -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Analyst Results</title>
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+
+  <body>
+    <main>
+      <header>
+        <img class="logo" src="/assets/YoutubeLogo.png" alt="YouTube logo" width="200" />
+        <h1>Analyst View: Survey Results</h1>
+      </header>
+
+      <p><strong>Total responses:</strong> <%= summary.totalResponses %></p>
+
+      <section aria-label="Charts">
+        <h2>Charts</h2>
+
+        <figure class="question">
+          <figcaption><strong>Q3:</strong> <%= questions.questions.q3 %></figcaption>
+          <canvas id="chartQ3" role="img" aria-label="Pie chart for sidebar preference"></canvas>
+          <p>
+            Left: <%= summary.q3.left %>,
+            Right: <%= summary.q3.right %>,
+            No preference: <%= summary.q3["no-preference"] %>
+          </p>
+        </figure>
+
+        <figure class="question">
+          <figcaption><strong>Q4:</strong> <%= questions.questions.q4 %></figcaption>
+          <canvas id="chartQ4" role="img" aria-label="Pie chart for link density preference"></canvas>
+          <p>
+            Too high: <%= summary.q4["too-high"] %>,
+            Too low: <%= summary.q4["too-low"] %>,
+            About right: <%= summary.q4["about-right"] %>
+          </p>
+        </figure>
+
+        <figure class="question">
+          <figcaption><strong>Q5:</strong> <%= questions.questions.q5 %></figcaption>
+          <canvas id="chartQ5" role="img" aria-label="Bar chart for liked colours"></canvas>
+          <p>
+            Red: <%= summary.q5.red %>,
+            White: <%= summary.q5.white %>,
+            Black: <%= summary.q5.black %>
+          </p>
+        </figure>
+      </section>
+
+      <section aria-label="Raw responses">
+        <h2>Raw Responses (newest first)</h2>
+
+        <table border="1" cellpadding="6" cellspacing="0" style="width:100%; border-collapse:collapse;">
+          <caption>Submitted responses</caption>
+          <thead>
+            <tr>
+              <th scope="col">Time</th>
+              <th scope="col">Q1</th>
+              <th scope="col">Q2</th>
+              <th scope="col">Q3</th>
+              <th scope="col">Q4</th>
+              <th scope="col">Q5</th>
+              <th scope="col">Q6</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (const r of responses) { %>
+              <tr>
+                <td><%= r.submittedAt %></td>
+                <td><%= r.answers.q1 %></td>
+                <td><%= r.answers.q2 %></td>
+                <td><%= r.answers.q3 %></td>
+                <td><%= r.answers.q4 %></td>
+                <td><%= (r.answers.q5 || []).join(", ") %></td>
+                <td><%= r.answers.q6 %></td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </section>
+      <script type="application/json" id="summary-json"><%- JSON.stringify(summary) %></script>
+      <script>
+        const summary = JSON.parse(document.getElementById("summary-json").textContent);
+        
+        new Chart(document.getElementById("chartQ3"), {
+          type: "pie",
+          data: {
+            labels: ["left", "right", "no-preference"],
+            datasets: [{ data: [summary.q3.left, summary.q3.right, summary.q3["no-preference"]] }]
+          }
+        });
+
+        new Chart(document.getElementById("chartQ4"), {
+          type: "pie",
+          data: {
+            labels: ["too-high", "too-low", "about-right"],
+            datasets: [{ data: [summary.q4["too-high"], summary.q4["too-low"], summary.q4["about-right"]] }]
+          }
+        });
+
+        new Chart(document.getElementById("chartQ5"), {
+          type: "bar",
+          data: {
+            labels: ["red", "white", "black"],
+            datasets: [{ data: [summary.q5.red, summary.q5.white, summary.q5.black] }]
+          }
+        });
+      </script>
+    </main>
+  </body>
+</html>

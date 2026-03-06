@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>YouTube UI Survey (Step 3)</title>
+    <link rel="stylesheet" href="/styles/styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <img class="logo" src="/assets/YoutubeLogo.png" alt="YouTube logo" width="200" />
+        <h1>YouTube User Interface Survey</h1>
+      </header>
+
+      <p><strong>Step 3 of 3</strong> (2 questions)</p>
+
+      <form action="/submit" method="POST">
+        <input type="hidden" name="q1" value="<%= answers.q1 %>" />
+        <input type="hidden" name="q2" value="<%= answers.q2 %>" />
+        <input type="hidden" name="q3" value="<%= answers.q3 %>" />
+        <input type="hidden" name="q4" value="<%= answers.q4 %>" />
+
+        <div class="question">
+          <label for="q5">Which colours do you like on the website?</label>
+          <small id="q5-hint">Hint: Use Ctrl (Windows) or Command (Mac) to select multiple</small>
+          <select name="q5" id="q5" multiple style="height: 90px" aria-describedby="q5-hint">
+            <option value="red">Red</option>
+            <option value="white">White</option>
+            <option value="black">Black</option>
+          </select>
+        </div>
+
+        <div class="question">
+          <label for="q6">Additional comments</label>
+          <textarea id="q6" name="q6" rows="4"
+            placeholder="Write any suggestions or issues you noticed..."></textarea>
+        </div>
+
+        <div id="submitbtn">
+          <input type="submit" value="Submit Survey" />
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
