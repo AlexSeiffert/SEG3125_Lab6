@@ -154,7 +154,18 @@ module.exports = function (app) {
       const responses = await readResponses(200);
       const summary = buildSummary(responses, questions);
 
-      res.render("results", { questions, responses, summary });
+      res.render("results", { questions, responses, summary, activeTab: "summary" });
+    } catch (e) {
+      next(e);
+    }
+  });
+
+  app.get("/results/individual", async (req, res, next) => {
+    try {
+      const questions = await loadQuestions();
+      const responses = await readResponses(200);
+
+      res.render("results_individual", { questions, responses, activeTab: "individual" });
     } catch (e) {
       next(e);
     }

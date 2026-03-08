@@ -16,6 +16,11 @@
         <h1>Analyst View: Survey Results</h1>
       </header>
 
+      <nav class="tabs" aria-label="Results views">
+        <a href="/results" class="tab <%= activeTab === 'summary' ? 'active' : '' %>">Summary</a>
+        <a href="/results/individual" class="tab <%= activeTab === 'individual' ? 'active' : '' %>">Individual Responses</a>
+      </nav>
+
       <p><strong>Total responses:</strong> <%= summary.totalResponses %></p>
 
       <section aria-label="Charts">
@@ -52,37 +57,6 @@
         </figure>
       </section>
 
-      <section aria-label="Raw responses">
-        <h2>Raw Responses (newest first)</h2>
-
-        <table border="1" cellpadding="6" cellspacing="0" style="width:100%; border-collapse:collapse;">
-          <caption>Submitted responses</caption>
-          <thead>
-            <tr>
-              <th scope="col">Time</th>
-              <th scope="col">Q1</th>
-              <th scope="col">Q2</th>
-              <th scope="col">Q3</th>
-              <th scope="col">Q4</th>
-              <th scope="col">Q5</th>
-              <th scope="col">Q6</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% for (const r of responses) { %>
-              <tr>
-                <td><%= r.submittedAt %></td>
-                <td><%= r.answers.q1 %></td>
-                <td><%= r.answers.q2 %></td>
-                <td><%= r.answers.q3 %></td>
-                <td><%= r.answers.q4 %></td>
-                <td><%= (r.answers.q5 || []).join(", ") %></td>
-                <td><%= r.answers.q6 %></td>
-              </tr>
-            <% } %>
-          </tbody>
-        </table>
-      </section>
       <script type="application/json" id="summary-json"><%- JSON.stringify(summary) %></script>
       <script>
         const summary = JSON.parse(document.getElementById("summary-json").textContent);

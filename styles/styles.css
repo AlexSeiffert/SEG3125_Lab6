@@ -241,3 +241,66 @@ footer p {
   font-size: 0.9rem;
   font-weight: 400;
 }
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin: 12px 0 22px;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 10px;
+}
+
+.tab {
+  display: inline-block;
+  padding: 8px 14px;
+  text-decoration: none;
+  color: var(--youtube-dark);
+  border: 1px solid var(--border-light);
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.tab:hover {
+  border-color: var(--border-hover);
+}
+
+.tab.active {
+  background: var(--youtube-red);
+  border-color: var(--youtube-red);
+  color: var(--youtube-light);
+}
+
+.response-card {
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 14px;
+  background: var(--youtube-light);
+}
+
+.response-card h3 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.response-card dl {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+.response-card dt {
+  font-weight: 600;
+}
+
+.response-card dd {
+  margin: 0 0 8px;
+  padding: 0 0 8px;
+  border-bottom: 1px dashed var(--border-light);
+}
+
+.response-card dd:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}

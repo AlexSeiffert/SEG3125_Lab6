@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Analyst Results - Individual Responses</title>
+    <link rel="stylesheet" href="/styles/styles.css" />
+  </head>
+
+  <body>
+    <main>
+      <header>
+        <img class="logo" src="/assets/YoutubeLogo.png" alt="YouTube logo" width="200" />
+        <h1>Analyst View: Survey Results</h1>
+      </header>
+
+      <nav class="tabs" aria-label="Results views">
+        <a href="/results" class="tab <%= activeTab === 'summary' ? 'active' : '' %>">Summary</a>
+        <a href="/results/individual" class="tab <%= activeTab === 'individual' ? 'active' : '' %>">Individual Responses</a>
+      </nav>
+
+      <section aria-label="Individual responses">
+        <h2>Individual Responses (newest first)</h2>
+
+        <% if (!responses.length) { %>
+          <p>No responses yet.</p>
+        <% } %>
+
+        <% for (const r of responses) { %>
+          <article class="response-card">
+            <h3>Submitted: <%= r.submittedAt %></h3>
+            <dl>
+              <dt><%= questions.questions.q1 %></dt>
+              <dd><%= r.answers.q1 || "-" %></dd>
+
+              <dt><%= questions.questions.q2 %></dt>
+              <dd><%= r.answers.q2 || "-" %></dd>
+
+              <dt><%= questions.questions.q3 %></dt>
+              <dd><%= r.answers.q3 || "-" %></dd>
+
+              <dt><%= questions.questions.q4 %></dt>
+              <dd><%= r.answers.q4 || "-" %></dd>
+
+              <dt><%= questions.questions.q5 %></dt>
+              <dd><%= (r.answers.q5 || []).join(", ") || "-" %></dd>
+
+              <dt><%= questions.questions.q6 %></dt>
+              <dd><%= r.answers.q6 || "-" %></dd>
+            </dl>
+          </article>
+        <% } %>
+      </section>
+    </main>
+  </body>
+</html>
