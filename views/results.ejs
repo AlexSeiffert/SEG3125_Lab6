@@ -127,10 +127,18 @@
         new Chart(document.getElementById("chartQ5"), {
           type: "bar",
           data: {
-            labels: ["red", "white", "black"],
+            labels: ["Red", "White", "Black"],
             datasets: [
-              { data: [summary.q5.red, summary.q5.white, summary.q5.black] },
+              {
+                data: [summary.q5.red, summary.q5.white, summary.q5.black],
+                backgroundColor: ["#ff0000", "#f0f0f0", "#282828"],
+              },
             ],
+          },
+          options: {
+            plugins: {
+              legend: { display: false },
+            },
           },
         });
       </script>
