@@ -27,7 +27,7 @@
 
         <% for (const r of responses) { %>
           <article class="response-card">
-            <h3>Submitted: <%= r.submittedAt %></h3>
+            <h3>Submitted: <%= new Date(r.submittedAt).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) %></h3>
             <dl>
               <dt><%= questions.questions.q1 %></dt>
               <dd><%= r.answers.q1 || "-" %></dd>
@@ -50,6 +50,7 @@
           </article>
         <% } %>
       </section>
+       <a href="/survey" class="back-to-survey">Back to Survey</a>
     </main>
   </body>
 </html>

@@ -14,8 +14,9 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "..", "views"));
 
-// needed to process data from HTML form POST req
-app.use(express.urlencoded({ extended: true }));
+// needed to process data from HTML form POST req and JSON API
+app.use(express.json({ limit: "1mb" }));
+app.use(express.urlencoded({ limit: "1mb", extended: true }));
 
 // static file serving
 app.use(express.static(path.join(__dirname, "..")));

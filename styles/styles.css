@@ -1,4 +1,4 @@
-/* styles.css */
+/* Import fonts and set up CSS variables */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
 
 :root {
@@ -14,6 +14,7 @@
   --focus-shadow: rgba(102, 126, 234, 0.1);
 }
 
+/* Global reset and base styles */
 * {
   margin: 0;
   padding: 0;
@@ -27,15 +28,14 @@ body {
     BlinkMacSystemFont,
     Arial,
     sans-serif;
-  background: var(
-    --bg-light
-  ); /* MOD: was background: var(--youtube-red); (less harsh background; keep red as accent) */
+  background: var(--bg-light);
   min-height: 100vh;
   padding: 20px;
   line-height: 1.6;
   color: var(--youtube-dark);
 }
 
+/* Main container and layout */
 main {
   max-width: 800px;
   margin: 0 auto;
@@ -45,6 +45,7 @@ main {
   padding: 40px;
 }
 
+/* Header styles */
 header {
   display: flex;
   flex-direction: row;
@@ -54,44 +55,45 @@ header {
 }
 
 .logo {
-  display: block; /* NEW: make logo behave predictably */
+  display: block;
 }
 
 header h1 {
-  margin-top: 0; /* MOD: was margin-top: 10px; (align baseline in flex header) */
+  margin-top: 0;
 }
 
 h1 {
   color: var(--youtube-dark);
-  font-size: 2.2rem; /* MOD: was 2.5rem (slightly smaller for balance with logo) */
+  font-size: 2.2rem;
   font-weight: 600;
-  margin-bottom: 0; /* MOD: was margin-bottom: 10px; (header spacing handled by container) */
+  margin-bottom: 0;
 }
 
+/* Text links and site link styling */
 .site-text-link {
-  text-align: center; /* NEW: center the text link */
-  margin-bottom: 18px; /* NEW: spacing before the UI screenshot */
+  text-align: center;
+  margin-bottom: 18px;
 }
 
 .site-text-link a {
-  color: var(--youtube-red); /* NEW: consistent accent color */
-  font-weight: 600; /* NEW: make the link stand out */
-  text-decoration: none; /* NEW: cleaner look; hover adds underline */
+  color: var(--youtube-red);
+  font-weight: 600;
+  text-decoration: none;
 }
 
 .site-text-link a:hover {
-  text-decoration: underline; /* NEW: visible hover affordance */
+  text-decoration: underline;
 }
 
 .site-link {
   display: block;
   text-align: center;
-  margin: 20px 0 30px; /* MOD: was margin: 30px 0; (more deliberate spacing) */
+  margin: 20px 0 30px;
   transition: transform 0.3s ease;
 }
 
 .site-link:hover {
-  transform: scale(1.02); /* MOD: was 1.05 (slightly subtler hover) */
+  transform: scale(1.02);
 }
 
 .site-link img {
@@ -101,37 +103,39 @@ h1 {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Form container */
 form {
-  margin-top: 20px; /* MOD: was margin-top: 40px; (image already adds spacing) */
+  margin-top: 20px;
 }
 
+/* Question blocks and labels */
 .question {
   margin-bottom: 20px;
-  padding: 14px; /* NEW: make questions visually uniform blocks */
-  border: 1px solid var(--border-light); /* NEW: uniform question divisions (requirement: divisions styled via CSS) */
-  border-radius: 8px; /* NEW: consistent card-like look */
-  background: #fff; /* NEW: keep questions readable on light background */
+  padding: 14px;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: #fff;
 }
 
 label {
   display: block;
-  font-size: 1.05rem; /* MOD: was 1.1rem (slightly tighter) */
+  font-size: 1.05rem;
   font-weight: 500;
   color: var(--youtube-dark);
-  margin-bottom: 8px; /* NEW: consistent spacing before controls */
+  margin-bottom: 8px;
 }
 
 .question-title {
-  display: block; /* NEW: allow non-label titles for radio/checkbox groups */
-  font-size: 1.05rem; /* NEW: match label sizing */
-  font-weight: 500; /* NEW: match label weight */
-  color: var(--youtube-dark); /* NEW: consistent text color */
-  margin-bottom: 10px; /* NEW: spacing before options */
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--youtube-dark);
+  margin-bottom: 10px;
 }
 
+/* Input fields and textareas */
 input[type="text"],
 textarea {
-  /* MOD: textarea added to share styling with text inputs */
   width: 100%;
   padding: 12px 16px;
   font-size: 1rem;
@@ -143,7 +147,6 @@ textarea {
 
 input[type="text"]:focus,
 textarea:focus {
-  /* MOD: textarea focus styling added */
   outline: none;
   border-color: var(--youtube-red);
   background-color: var(--youtube-light);
@@ -152,15 +155,29 @@ textarea:focus {
 
 input[type="text"]:hover,
 textarea:hover {
-  /* MOD: textarea hover styling added */
   border-color: var(--border-hover);
 }
 
-textarea {
-  resize: vertical; /* NEW: allow resizing vertically only */
-  min-height: 110px; /* NEW: ensure comments area is visibly “a space” */
+input[type="text"]::placeholder,
+textarea::placeholder {
+  font-family:
+    "Roboto",
+    -apple-system,
+    BlinkMacSystemFont,
+    Arial,
+    sans-serif;
+  font-size: 1rem;
+  color: var(--text-grey);
+  opacity: 1;
+  font-weight: 400;
 }
 
+textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+/* Select dropdown */
 select {
   width: 100%;
   padding: 12px 16px;
@@ -181,26 +198,109 @@ select:hover {
   border-color: var(--border-hover);
 }
 
+/* Radio buttons and checkboxes */
 .options {
-  display: grid; /* NEW: structured layout for options */
-  gap: 10px; /* NEW: consistent spacing between options */
+  display: grid;
+  gap: 10px;
 }
 
 .option {
-  display: flex; /* NEW: align radio/checkbox icon next to text */
-  align-items: center; /* NEW: vertical alignment */
-  gap: 10px; /* NEW: spacing between icon and label text */
-  font-size: 1rem; /* NEW: readable option text */
-  cursor: pointer; /* NEW: clicking feels interactive */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 .option input[type="radio"],
 .option input[type="checkbox"] {
-  accent-color: var(
-    --youtube-red
-  ); /* NEW: red radio/checkbox icons (requested “radio icon beside it”) */
+  accent-color: var(--youtube-red);
 }
 
+/* Sidebar and color options */
+.sidebar-label,
+.color-label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.sidebar-options,
+.color-options {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 0;
+}
+
+.flex-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Step warning message */
+.step-warning {
+  color: #b00020;
+  background: #fff3f3;
+  border: 1.5px solid #ffbdbd;
+  border-radius: 6px;
+  padding: 10px 16px;
+  margin: 14px 0 0 0;
+  font-weight: 500;
+  font-size: 1.04rem;
+  box-shadow: 0 2px 8px rgba(255, 0, 0, 0.06);
+  display: block;
+  letter-spacing: 0.1px;
+  text-align: center;
+}
+
+/* Buttons and submit controls */
+.next-btn,
+.submit-btn,
+.back-btn,
+input[type="submit"] {
+  margin: 12px 8px 0 8px;
+  cursor: pointer;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: 2px solid var(--youtube-red);
+  border-radius: 6px;
+  background-color: var(--youtube-red);
+  color: var(--youtube-light);
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.next-btn:hover,
+.submit-btn:hover,
+input[type="submit"]:hover {
+  background: #d90000;
+  color: #fff;
+  border-color: #d90000;
+  box-shadow: 0 4px 16px var(--shadow-color);
+  filter: brightness(0.98);
+}
+
+.back-btn {
+  background: #f3f3f3;
+  color: var(--text-dark-grey);
+  border: 2px solid var(--border-light);
+  box-shadow: none;
+}
+
+.back-btn:hover {
+  background: #e0e0e0;
+  color: var(--youtube-dark);
+  border-color: var(--border-hover);
+}
+
+#submitbtn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Helper text and small elements */
 small {
   color: var(--text-grey);
   font-size: 0.95rem;
@@ -208,40 +308,7 @@ small {
   text-align: left;
 }
 
-input[type="submit"] {
-  margin-top: 20px;
-  cursor: pointer;
-  padding: 12px 18px; /* MOD: was 12px 16px (slightly wider button) */
-  font-size: 1.1rem;
-  border: 2px solid var(--youtube-red);
-  border-radius: 6px;
-  background-color: var(--youtube-red);
-  color: var(--youtube-light);
-}
-
-input[type="submit"]:hover {
-  filter: brightness(0.95); /* NEW: subtle hover feedback */
-}
-
-#submitbtn {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-footer {
-  margin-top: 50px;
-  padding-top: 30px;
-  border-top: 2px solid var(--border-light);
-  text-align: center;
-}
-
-footer p {
-  color: var(--text-dark-grey);
-  font-size: 0.9rem;
-  font-weight: 400;
-}
-
+/* Tabs and tab navigation */
 .tabs {
   display: flex;
   gap: 10px;
@@ -270,6 +337,7 @@ footer p {
   color: var(--youtube-light);
 }
 
+/* Response cards */
 .response-card {
   border: 1px solid var(--border-light);
   border-radius: 10px;
@@ -303,4 +371,43 @@ footer p {
   border-bottom: 0;
   padding-bottom: 0;
   margin-bottom: 0;
+}
+
+/* Footer */
+footer {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 2px solid var(--border-light);
+  text-align: center;
+}
+
+footer p {
+  color: var(--text-dark-grey);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+/* Back to survey link */
+.back-to-survey {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 20px auto;
+  padding: 8px 16px;
+  background: #f3f3f3;
+  color: var(--text-dark-grey);
+  text-decoration: none;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.back-to-survey:hover {
+  background: #e8e8e8;
+  border-color: var(--border-hover);
+}
+
+/* Chart sizing */
+canvas {
+  max-width: 300px;
+  max-height: 300px;
 }

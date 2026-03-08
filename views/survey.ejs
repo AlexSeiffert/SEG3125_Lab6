@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>YouTube UI Survey</title>
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <script defer src="/scripts/survey.js"></script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <img
+          class="logo"
+          src="/assets/YoutubeLogo.png"
+          alt="YouTube logo"
+          width="200"
+        />
+        <h1>YouTube User Interface Survey</h1>
+      </header>
+
+      <form id="survey-form" action="/submit" method="POST">
+        <!-- Step 1 -->
+        <section class="survey-step" style="display: none">
+          <p class="site-text-link">
+            <a
+              href="https://www.youtube.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Visit YouTube</a
+            >
+          </p>
+          <a
+            class="site-link"
+            href="https://www.youtube.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="/assets/YoutubeImage.png"
+              alt="Screenshot of YouTube (Loading failed. Please refresh.)"
+              width="700"
+            />
+          </a>
+          <p><strong>Step 1 of 3</strong> (2 questions)</p>
+          <div class="question">
+            <label for="q1">What do you like about this website?</label>
+            <input
+              type="text"
+              id="q1"
+              name="q1"
+              placeholder="e.g., recommendations, layout, search..."
+              required
+            />
+          </div>
+          <div class="question">
+            <label for="q2">What do you dislike about this website?</label>
+            <input
+              type="text"
+              id="q2"
+              name="q2"
+              placeholder="e.g., ads, clutter, autoplay..."
+              required
+            />
+          </div>
+          <div id="submitbtn">
+            <button class="next-btn">Next</button>
+          </div>
+        </section>
+
+        <!-- Step 2 -->
+        <section class="survey-step" style="display: none">
+          <p><strong>Step 2 of 3</strong> (2 questions)</p>
+          <div class="question">
+            <label class="question-title sidebar-label"
+              >Do you prefer the sidebar on the left or the right?</label
+            >
+            <div class="options sidebar-options">
+              <label class="option flex-option">
+                <input type="radio" name="q3" value="left" required />
+                Left
+              </label>
+              <label class="option flex-option">
+                <input type="radio" name="q3" value="right" />
+                Right
+              </label>
+              <label class="option flex-option">
+                <input type="radio" name="q3" value="no-preference" />
+                No preference
+              </label>
+            </div>
+          </div>
+          <div class="question">
+            <label for="q4"
+              >Is the density of links too high, too low, or about right?</label
+            >
+            <select name="q4" id="q4" required>
+              <option value="" selected disabled>Select one...</option>
+              <option value="too-high">Too high</option>
+              <option value="too-low">Too low</option>
+              <option value="about-right">About right</option>
+            </select>
+          </div>
+          <div id="submitbtn">
+            <button class="back-btn">Back</button>
+            <button class="next-btn">Next</button>
+          </div>
+        </section>
+
+        <!-- Step 3 -->
+        <section class="survey-step" style="display: none">
+          <p><strong>Step 3 of 3</strong> (2 questions)</p>
+          <div class="question">
+            <label class="question-title color-label"
+              >Which colours do you like on the website?</label
+            >
+            <div class="options color-options">
+              <label class="option flex-option">
+                <input type="checkbox" name="q5" value="red" required /> Red
+              </label>
+              <label class="option flex-option">
+                <input type="checkbox" name="q5" value="white" /> White
+              </label>
+              <label class="option flex-option">
+                <input type="checkbox" name="q5" value="black" /> Black
+              </label>
+            </div>
+          </div>
+          <div class="question">
+            <label for="q6">Additional comments</label>
+            <textarea
+              id="q6"
+              name="q6"
+              rows="4"
+              placeholder="Write any suggestions or issues you noticed..."
+            ></textarea>
+          </div>
+          <div id="submitbtn">
+            <button class="back-btn">Back</button>
+            <button type="submit" class="submit-btn">Submit</button>
+          </div>
+        </section>
+      </form>
+
+      <footer>
+        <p>
+          Website designed by Alexander Seiffert, Alexander Yeh, and Macintosh
+          Chen
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

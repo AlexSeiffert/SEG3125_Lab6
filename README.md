@@ -26,8 +26,8 @@
 
 - `scripts/app.js` — Main entry point, starts the Express server
 - `scripts/server.js` — Route and server logic
-- `views/` — Contains EJS and HTML views
-- `public/` — Static assets (CSS, images, etc.)
+- `views/` — Contains EJS views
+- `assets/` — Static assets (CSS, images, etc.)
 
 ---
 

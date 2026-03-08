@@ -1,12 +1,14 @@
-// scripts/server.js
 const path = require("path");
 const fs = require("fs/promises");
-const express = require("express");
 
 const ROOT = path.join(__dirname, "..");
 const DATA_DIR = path.join(ROOT, "data");
 const QUESTIONS_FILE = path.join(DATA_DIR, "questions.json");
 const RESPONSES_FILE = path.join(DATA_DIR, "responses.jsonl");
+
+// Response limits
+const DEFAULT_RESPONSE_LIMIT = 200;
+const MAX_RESPONSE_LIMIT = 500;
 
 async function ensureDataDir() {
   await fs.mkdir(DATA_DIR, { recursive: true });
@@ -28,13 +30,16 @@ function normalizeSurveyBody(body) {
       q3: clean(body.q3 || ""),
       q4: clean(body.q4 || ""),
       q5: toArray(body.q5).map(clean).filter(Boolean),
-      q6: clean(body.q6 || "")
-    }
+      q6: clean(body.q6 || ""),
+    },
   };
 }
 
 async function appendResponse(respObj) {
   await ensureDataDir();
+  if (!respObj.answers || !respObj.submittedAt) {
+    throw new Error("Invalid response object");
+  }
   await fs.appendFile(RESPONSES_FILE, JSON.stringify(respObj) + "\n", "utf8");
 }
 
@@ -42,12 +47,13 @@ async function loadQuestions() {
   try {
     const raw = await fs.readFile(QUESTIONS_FILE, "utf8");
     return JSON.parse(raw);
-  } catch {
+  } catch (e) {
+    console.error("Error loading questions:", e);
     return { title: "Survey", questions: {}, options: {} };
   }
 }
 
-async function readResponses(limit = 200) {
+async function readResponses(limit = DEFAULT_RESPONSE_LIMIT) {
   try {
     const raw = await fs.readFile(RESPONSES_FILE, "utf8");
     const lines = raw.split("\n").filter((l) => l.trim().length > 0);
@@ -81,7 +87,7 @@ function buildSummary(responses, questions) {
     totalResponses: responses.length,
     q3: initCounts(opts("q3")),
     q4: initCounts(opts("q4")),
-    q5: initCounts(opts("q5"))
+    q5: initCounts(opts("q5")),
   };
 
   for (const r of responses) {
@@ -106,32 +112,12 @@ function buildSummary(responses, questions) {
 }
 
 module.exports = function (app) {
-  // Parse JSON for REST API
-  app.use(express.json({ limit: "1mb" }));
+  // (parsing middleware now in app.js)
 
-  // -------------------------
-  // Multi-form survey routes
-  // -------------------------
-  app.get("/", (req, res) => res.redirect("/survey/1"));
-  app.get("/survey", (req, res) => res.redirect("/survey/1"));
-
-  app.get("/survey/1", (req, res) => {
-    res.render("survey_step1", { answers: {} });
-  });
-
-  app.post("/survey/2", (req, res) => {
-    const answers = { q1: req.body.q1 || "", q2: req.body.q2 || "" };
-    res.render("survey_step2", { answers });
-  });
-
-  app.post("/survey/3", (req, res) => {
-    const answers = {
-      q1: req.body.q1 || "",
-      q2: req.body.q2 || "",
-      q3: req.body.q3 || "",
-      q4: req.body.q4 || ""
-    };
-    res.render("survey_step3", { answers });
+  // Single-page survey route
+  app.get("/", (req, res) => res.redirect("/survey"));
+  app.get("/survey", (req, res) => {
+    res.render("survey");
   });
 
   // Final submit: save to file and redirect to analyst page
@@ -141,20 +127,24 @@ module.exports = function (app) {
       await appendResponse(respObj);
       res.redirect("/results");
     } catch (e) {
+      console.error("Error in /submit:", e);
       next(e);
     }
   });
 
-  // -------------------------
   // Analyst/results view (server-side accessible)
-  // -------------------------
   app.get("/results", async (req, res, next) => {
     try {
       const questions = await loadQuestions();
       const responses = await readResponses(200);
       const summary = buildSummary(responses, questions);
 
-      res.render("results", { questions, responses, summary, activeTab: "summary" });
+      res.render("results", {
+        questions,
+        responses,
+        summary,
+        activeTab: "summary",
+      });
     } catch (e) {
       next(e);
     }
@@ -165,15 +155,17 @@ module.exports = function (app) {
       const questions = await loadQuestions();
       const responses = await readResponses(200);
 
-      res.render("results_individual", { questions, responses, activeTab: "individual" });
+      res.render("results_individual", {
+        questions,
+        responses,
+        activeTab: "individual",
+      });
     } catch (e) {
       next(e);
     }
   });
 
-  // -------------------------
-  // REST APIs (required)
-  // -------------------------
+  // REST APIs
 
   // Add response via API
   app.post("/api/responses", async (req, res, next) => {
@@ -189,7 +181,13 @@ module.exports = function (app) {
   // Get responses (latest first)
   app.get("/api/responses", async (req, res, next) => {
     try {
-      const limit = Math.max(1, Math.min(500, Number(req.query.limit) || 200));
+      const limit = Math.max(
+        1,
+        Math.min(
+          MAX_RESPONSE_LIMIT,
+          Number(req.query.limit) || DEFAULT_RESPONSE_LIMIT,
+        ),
+      );
       const responses = await readResponses(limit);
       res.json({ ok: true, responses });
     } catch (e) {
@@ -201,7 +199,7 @@ module.exports = function (app) {
   app.get("/api/summary", async (req, res, next) => {
     try {
       const questions = await loadQuestions();
-      const responses = await readResponses(500);
+      const responses = await readResponses(MAX_RESPONSE_LIMIT);
       const summary = buildSummary(responses, questions);
       res.json({ ok: true, summary });
     } catch (e) {
@@ -209,12 +207,14 @@ module.exports = function (app) {
     }
   });
 
-  // -------------------------
   // Error handling
-  // -------------------------
   app.use((req, res) => res.status(404).send("404 Not Found"));
   app.use((err, req, res, next) => {
-    console.error(err);
-    res.status(500).send("500 Server Error");
+    console.error("Error:", err);
+    const status = err.status || 500;
+    res.status(status).json({
+      error:
+        process.env.NODE_ENV === "development" ? err.message : "Server Error",
+    });
   });
 };
