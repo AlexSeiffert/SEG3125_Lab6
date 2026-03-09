@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <title>Analyst Results - Individual Responses</title>
     <link rel="stylesheet" href="/styles/styles.css" />
+    <script defer src="/scripts/response-view.js"></script>
   </head>
 
   <body>
@@ -25,29 +26,38 @@
           <p>No responses yet.</p>
         <% } %>
 
-        <% for (const r of responses) { %>
-          <article class="response-card">
-            <h3>Submitted: <%= new Date(r.submittedAt).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) %></h3>
-            <dl>
-              <dt><%= questions.questions.q1 %></dt>
-              <dd><%= r.answers.q1 || "-" %></dd>
+        <div>
+            <button id="prev" class="tab">Back</button>
+            <button id="next" class="tab">Next</button>
+        </div>
 
-              <dt><%= questions.questions.q2 %></dt>
-              <dd><%= r.answers.q2 || "-" %></dd>
+        <% for (let i = 0; i < responses.length; i++) { const r = responses[i]; %>
+            <% if (i === 0) { %>
+            <article class="response-card" style="display: block;">
+            <% } else { %>
+            <article class="response-card" style="display: none;">
+            <% } %>
+              <h3>Submitted: <%= r.submittedAt %></h3>
+              <dl>
+                <dt><%= questions.questions.q1 %></dt>
+                <dd><%= r.answers.q1 || "-" %></dd>
 
-              <dt><%= questions.questions.q3 %></dt>
-              <dd><%= r.answers.q3 || "-" %></dd>
+                <dt><%= questions.questions.q2 %></dt>
+                <dd><%= r.answers.q2 || "-" %></dd>
 
-              <dt><%= questions.questions.q4 %></dt>
-              <dd><%= r.answers.q4 || "-" %></dd>
+                <dt><%= questions.questions.q3 %></dt>
+                <dd><%= r.answers.q3 || "-" %></dd>
 
-              <dt><%= questions.questions.q5 %></dt>
-              <dd><%= (r.answers.q5 || []).join(", ") || "-" %></dd>
+                <dt><%= questions.questions.q4 %></dt>
+                <dd><%= r.answers.q4 || "-" %></dd>
 
-              <dt><%= questions.questions.q6 %></dt>
-              <dd><%= r.answers.q6 || "-" %></dd>
-            </dl>
-          </article>
+                <dt><%= questions.questions.q5 %></dt>
+                <dd><%= (r.answers.q5 || []).join(", ") || "-" %></dd>
+
+                <dt><%= questions.questions.q6 %></dt>
+                <dd><%= r.answers.q6 || "-" %></dd>
+              </dl>
+            </article>
         <% } %>
       </section>
        <a href="/survey" class="back-to-survey">Back to Survey</a>
